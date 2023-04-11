@@ -4,12 +4,13 @@ import logo from '../assets/logo.svg'
 import {FaBars} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 import CartButtons from './CartButtons'
-import {links} from "../utils/cobstants";
+import {links} from "../utils/cobstants"
+import Sidebar from "./Sidebar";
 
 const Navbar = () => {
 
-  const [navMenu, setNavMenu] = useState(false)
-  const toggleNavbarHandler = () => { alert('clicked')}
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const toggleSidebarHandler = () => setSidebarOpen(!sidebarOpen)
 
   return <NavContainer>
     <div className="nav-center">
@@ -17,7 +18,7 @@ const Navbar = () => {
         <Link to='/'>
           <img src={logo} alt="logo"/>
         </Link>
-        <button type='button' className='nav-toggle' onClick={toggleNavbarHandler}>
+        <button type='button' className='nav-toggle' onClick={toggleSidebarHandler}>
           <FaBars/>
         </button>
       </div>
@@ -28,6 +29,7 @@ const Navbar = () => {
       </ul>
       <CartButtons/>
     </div>
+    {sidebarOpen ? <Sidebar isSidebarOpen={sidebarOpen} closeSideBar={toggleSidebarHandler} /> : ""}
   </NavContainer>
 }
 
