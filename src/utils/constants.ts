@@ -50,6 +50,6 @@ export const services: serviceType[] = [
   },
 ]
 
-export const products_url = 'https://course-api.com/react-store-products'
-
-export const single_product_url = `https://course-api.com/react-store-single-product?id=`
+export const BASE_URL = 'https://course-api.com/'
+export const PRODUCTS_URL = 'react-store-products'
+export const SINGLE_PRODUCT_URL = 'react-store-single-product?id='
