@@ -7,14 +7,14 @@ const instance = axios.create({
 
 export const comfyAPI = {
   getProducts () {
-    return instance.get<ProductResponseType[]>(PRODUCTS_URL)
+    return instance.get<ProductsResponseType[]>(PRODUCTS_URL)
   },
   getProduct(id: string){
-    return instance.get(SINGLE_PRODUCT_URL + id)
+    return instance.get<ProductResponseType>(SINGLE_PRODUCT_URL + id)
   }
 }
 
-export type ProductResponseType = {
+export type ProductsResponseType = {
   id: string
   name: string
   price: number
@@ -24,4 +24,42 @@ export type ProductResponseType = {
   description: string
   category: string
   shipping: boolean
+}
+
+export type ProductResponseType = {
+  id: string
+  stock: 0
+  price: number
+  shipping: boolean
+  color: string[]
+  category: string
+  image: ImageType[]
+}
+
+
+type ImageType = {
+  id: string
+  width: number
+  height: number
+  url: string
+  filename: string
+  size: number
+  type: string
+  thumbnails: {
+    small: {
+      url: string
+      width: number
+      height: number
+    },
+    large: {
+      url: string
+      width: number
+      height: number
+    },
+    full: {
+      url: string
+      width: number
+      height: number
+    }
+  }
 }
