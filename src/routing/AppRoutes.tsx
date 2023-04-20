@@ -12,6 +12,7 @@ export const AppRoutes = () => {
         <Route path={PATH.HOME} element={<Home/>}/>
         <Route path={PATH.ABOUT} element={<About/>} />
         <Route path={PATH.PRODUCTS} element={<ProductsPage/>} />
+        <Route path={PATH.PRODUCTS} element={<ProductsPage/>} />
       </Routes>
     </>
   );
