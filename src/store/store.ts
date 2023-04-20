@@ -1,9 +1,9 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore, legacy_createStore} from 'redux'
-import {productReducer} from "../reducers/product-reducer";
+import {productsReducer} from "../reducers/products-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 
 const rootReducer = combineReducers({
-  products: productReducer
+  products: productsReducer
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
