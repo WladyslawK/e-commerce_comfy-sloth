@@ -1,9 +1,12 @@
 import React from 'react';
+import FeaturedProducts from "../components/FeaturedProducts";
+import {Hero} from "../components";
 
 const HomePage = () => {
   return (
     <div>
-      Home Page
+      <Hero/>
+      <FeaturedProducts/>
     </div>
   );
 };
