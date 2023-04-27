@@ -1,3 +1,6 @@
+import {IconType} from "react-icons";
+import React from "react";
+
 export const formatPrice = (price: number) => {
   const newNumber = new Intl.NumberFormat('pl', {
     style: 'currency',
@@ -15,4 +18,10 @@ export const getUniqueValues = (data: any[], type: string) => {
 
   return ['all', ...new Set(unique)]
 
+}
+
+
+export const renderComponent = (name: IconType) => {
+  const component = React.createElement(name)
+  return component
 }

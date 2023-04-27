@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, ReactNode} from 'react'
 import { GiCompass, GiDiamondHard, GiStabbedNote } from 'react-icons/gi'
 import {IconType} from "react-icons";
 export const links = [
@@ -25,6 +25,7 @@ type serviceType = {
   title: string
   text: string
 }
+
 
 export const services: serviceType[] = [
   {
