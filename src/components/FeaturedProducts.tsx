@@ -5,19 +5,15 @@ import Error from './Error'
 import Loading from './Loading'
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType, ThunkAppDispatchType} from "../store/store";
-import {getProductsTC, productsInitialState, productsStateType} from "../reducers/product-reducer";
-// import Product from './Product'
+import {getProductsTC, productsStateType} from "../reducers/products-reducer";
+import Product from './Product'
 
 const FeaturedProducts = () => {
-
-  /*const {products_loading: loading, feature_products: featured, products_error: error} = useProductsContext()
-*/
 
   const {
     products_loading: loading,
     products_error: error,
-    products,
-    feature_products
+    feature_products: featured
   } = useSelector<rootReducerType, productsStateType>(state => state.products)
 
   const dispatch = useDispatch<ThunkAppDispatchType>()
@@ -25,9 +21,6 @@ const FeaturedProducts = () => {
   useEffect(() => {
     dispatch(getProductsTC())
   }, [])
-
-
-  console.log('state ', feature_products)
 
   if (loading) {
     return <Loading/>
@@ -43,15 +36,8 @@ const FeaturedProducts = () => {
       <div className="underline"></div>
       <div className="section-center featured">
         {
-          /*featured.slice(0, 3).map(product => <product key={product.id} {...product} />)*/
-
-
+          featured.slice(0, 3).map(product => <Product key={product.id} {...product} />)
         }
-        <ul>
-          {
-            feature_products.map(product => <li key={product.id}>{product.name}</li>)
-          }
-        </ul>
       </div>
     </div>
   </Wrapper>
@@ -59,6 +45,10 @@ const FeaturedProducts = () => {
 
 const Wrapper = styled.section`
   background: var(--clr-grey-10);
+  
+  .title{
+    padding: 5rem 0;
+  }
 
   .featured {
     margin: 4rem auto;
