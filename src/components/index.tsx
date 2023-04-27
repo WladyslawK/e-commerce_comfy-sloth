@@ -5,6 +5,7 @@ import Error from './Error';
 import Loading from './Loading';
 import Hero from './Hero';
 import Product from './Product';
+import Services from './Services';
 export {
   CartButtons,
   PageHero,
@@ -12,5 +13,6 @@ export {
   Error,
   Loading,
   Hero,
-  Product
+  Product,
+  Services
 }
