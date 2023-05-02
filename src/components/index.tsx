@@ -6,6 +6,8 @@ import Loading from './Loading';
 import Hero from './Hero';
 import Product from './Product';
 import Services from './Services';
+import Footer from './Footer';
+
 export {
   CartButtons,
   PageHero,
@@ -14,5 +16,6 @@ export {
   Loading,
   Hero,
   Product,
-  Services
+  Services,
+  Footer
 }

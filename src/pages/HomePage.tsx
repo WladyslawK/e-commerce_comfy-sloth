@@ -1,13 +1,17 @@
 import React from 'react';
 import FeaturedProducts from "../components/FeaturedProducts";
-import {Hero} from "../components";
+import {Hero, Services} from "../components";
+import Contact from "../components/Contact";
 
 const HomePage = () => {
   return (
-    <div>
+    <main>
       <Hero/>
       <FeaturedProducts/>
-    </div>
+      <Services/>
+      <Contact/>
+
+    </main>
   );
 };
 
