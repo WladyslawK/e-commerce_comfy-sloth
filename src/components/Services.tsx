@@ -37,6 +37,8 @@ const Services = () => {
 }
 
 const Wrapper = styled.section`
+  margin-bottom: 5rem;
+  
   h3,
   h4 {
     color: var(--clr-primary-1);
