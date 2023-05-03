@@ -8,6 +8,9 @@ import Product from "./Product";
 import Services from "./Services";
 import Footer from "./Footer";
 import ProductImages from "./ProductImages";
+import AddToCart from "./AddToCart";
+import AmountButtons from "./AmountButtons";
+import Stars from "./Stars";
 
 export {
   CartButtons,
@@ -20,4 +23,7 @@ export {
   Services,
   Footer,
   ProductImages,
+  AddToCart,
+  AmountButtons,
+  Stars,
 };
