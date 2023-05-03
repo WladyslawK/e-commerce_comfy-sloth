@@ -18,5 +18,6 @@ export {
   Hero,
   Product,
   Services,
-  Footer
-}
+  Footer,
+  ProductImages,
+};
