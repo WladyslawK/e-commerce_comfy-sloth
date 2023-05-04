@@ -8,13 +8,16 @@ type Props = {
   }[];
 };
 const ProductImages = ({ images }: Props) => {
-  const [main, setMain] = useState(images[0]);
+  const [main, setMain] = useState(
+    images ? images[0] : { url: null, filename: null }
+  );
 
   return (
     <Wrapper>
-      <img src={main.url} alt="main" className="main" />
+      <img src={main.url ? main.url : ""} alt="main" className="main" />
       <div className="gallery">
-        {images.map((image, index) => {
+        {images &&
+          images.map((image, index) => {
           return (
             <img
               key={index}
