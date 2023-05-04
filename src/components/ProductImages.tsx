@@ -18,16 +18,16 @@ const ProductImages = ({ images }: Props) => {
       <div className="gallery">
         {images &&
           images.map((image, index) => {
-          return (
-            <img
-              key={index}
-              className={main.url === image.url ? "active" : ""}
-              src={image.url}
-              alt={image.filename}
-              onClick={() => setMain(image)}
-            />
-          );
-        })}
+            return (
+              <img
+                key={index}
+                className={main.url === image.url ? "active" : ""}
+                src={image.url}
+                alt={image.filename}
+                onClick={() => setMain(image)}
+              />
+            );
+          })}
       </div>
     </Wrapper>
   );
