@@ -11,6 +11,8 @@ import ProductImages from "./ProductImages";
 import AddToCart from "./AddToCart";
 import AmountButtons from "./AmountButtons";
 import Stars from "./Stars";
+import { ProductsList } from "./ProductsList";
+import { GridView } from "./GridView";
 
 export {
   CartButtons,
@@ -26,4 +28,6 @@ export {
   AddToCart,
   AmountButtons,
   Stars,
+  ProductsList,
+  GridView
 };
