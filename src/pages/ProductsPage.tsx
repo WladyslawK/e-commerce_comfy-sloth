@@ -1,5 +1,5 @@
 import React from 'react';
-import {PageHero, ProductsList} from "../components";
+import {PageHero, ProductsList, Sort} from "../components";
 import styled from "styled-components";
 
 export const ProductsPage = () => {
@@ -8,6 +8,7 @@ export const ProductsPage = () => {
       <Wrapper>
         <div className='section-center products'>
           <div>
+            <Sort/>
             <ProductsList/>
           </div>
         </div>

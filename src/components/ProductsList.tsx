@@ -7,7 +7,7 @@ import {ListView} from "./ListView";
 
 export function ProductsList() {
 
-  const {filtered_products: products} = useSelector<rootReducerType, FilterStateType>(state => state.filter)
+  const {filtered_products: products, grid_view} = useSelector<rootReducerType, FilterStateType>(state => state.filter)
 
   if(!products.length){
     return <h5 style={{textTransform: 'none'}}>
@@ -17,8 +17,12 @@ export function ProductsList() {
 
   return (
     <div>
-      {/*<GridView products={products}/>*/}
-      <ListView products={products}/>
+      {
+        grid_view ?
+        <GridView products={products}/> :
+        <ListView products={products}/>
+      }
+
     </div>
   );
 };
