@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {FilterStateType} from "../reducers/filter-reducer";
 import {rootReducerType} from "../store/store";
 import {GridView} from "./GridView";
+import {ListView} from "./ListView";
 
 export function ProductsList() {
 
@@ -16,7 +17,8 @@ export function ProductsList() {
 
   return (
     <div>
-      <GridView products={products}/>
+      {/*<GridView products={products}/>*/}
+      <ListView products={products}/>
     </div>
   );
 };
