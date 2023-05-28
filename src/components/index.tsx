@@ -14,6 +14,7 @@ import Stars from "./Stars";
 import { ProductsList } from "./ProductsList";
 import { GridView } from "./GridView";
 import {  ListView } from "./ListView";
+import {  Sort } from "./Sort";
 
 export {
   CartButtons,
@@ -31,5 +32,6 @@ export {
   Stars,
   ProductsList,
   GridView,
-  ListView
+  ListView,
+  Sort
 };
