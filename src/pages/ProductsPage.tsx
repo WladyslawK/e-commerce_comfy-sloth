@@ -1,8 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {PageHero, ProductsList, Sort} from "../components";
 import styled from "styled-components";
+import {useDispatch, useSelector} from "react-redux";
+import {rootReducerType, ThunkAppDispatchType} from "../store/store";
+import {FilterStateType} from "../reducers/filter-reducer";
+import {getProductsTC} from "../reducers/products-reducer";
 
 export const ProductsPage = () => {
+
+  const {filtered_products: products, } = useSelector<rootReducerType, FilterStateType>(state => state.filter)
+
+  const dispatch = useDispatch<ThunkAppDispatchType>()
+
+  useEffect(() => {
+    if(!products.length){
+      dispatch(getProductsTC())
+    }
+  }, [])
+
   return (<main>
       <PageHero title={'products'}/>
       <Wrapper>
