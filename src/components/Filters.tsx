@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import {getUniqueValues, formatPrice} from '../utils/helpers'
 import {FaCheck} from 'react-icons/fa'
+import {useSelector} from "react-redux";
+import {rootReducerType} from "../store/store";
+import {FilterStateType} from "../reducers/filter-reducer";
 
 export function Filters() {
 
@@ -16,9 +19,9 @@ export function Filters() {
       price,
       shipping,
     },
-  } = useFilterContext()
+    all_products
+  } = useSelector<rootReducerType, FilterStateType>(state => state.filter)
 
-  const all_products = () => {}
   const updateFilters = () => {}
   const clearFilters = () => {}
 
@@ -51,7 +54,7 @@ export function Filters() {
                   type="button"
                   key={index}
                   name='category'
-                  onClick={(e) => updateFilters(e)}
+                  onClick={updateFilters}
                   className={item === category ? 'active' : ''}
                 >
                   {item}
