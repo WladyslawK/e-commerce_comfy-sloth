@@ -15,6 +15,7 @@ import { ProductsList } from "./ProductsList";
 import { GridView } from "./GridView";
 import {  ListView } from "./ListView";
 import {  Sort } from "./Sort";
+import {  Filters } from "./Filters";
 
 export {
   CartButtons,
@@ -33,5 +34,6 @@ export {
   ProductsList,
   GridView,
   ListView,
-  Sort
+  Sort,
+  Filters
 };

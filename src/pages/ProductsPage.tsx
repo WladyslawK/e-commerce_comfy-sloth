@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {PageHero, ProductsList, Sort} from "../components";
+import {Filters, PageHero, ProductsList, Sort} from "../components";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType, ThunkAppDispatchType} from "../store/store";
@@ -22,6 +22,7 @@ export const ProductsPage = () => {
       <PageHero title={'products'}/>
       <Wrapper>
         <div className='section-center products'>
+          <Filters/>
           <div>
             <Sort/>
             <ProductsList/>
