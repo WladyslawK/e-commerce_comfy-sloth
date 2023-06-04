@@ -1,4 +1,12 @@
-import {SET_GRID_VIEW, SET_LIST_VIEW, SET_PRODUCTS, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT} from "../utils/actions";
+import {
+  FILTER_PRODUCTS,
+  SET_GRID_VIEW,
+  SET_LIST_VIEW,
+  SET_PRODUCTS,
+  SORT_PRODUCTS,
+  UPDATE_FILTERS,
+  UPDATE_SORT
+} from "../utils/actions";
 import {ProductsResponseType} from "../api/comfy-api";
 import {setProductsAC} from "./products-reducer";
 
@@ -46,6 +54,7 @@ export const updateFiltersAC = (payload: Partial<FilterStateType['filter']>) => 
   type: UPDATE_FILTERS,
   payload
 } as const)
+export const filterProductsAC = () => ({type: FILTER_PRODUCTS} as const)
 
 export const filterReducer = (state: FilterStateType = initialState, action: ActionsType): FilterStateType => {
   switch (action.type) {
@@ -82,6 +91,39 @@ export const filterReducer = (state: FilterStateType = initialState, action: Act
     }
     case UPDATE_FILTERS:
       return {...state, filter: {...state.filter, ...action.payload }}
+
+    case FILTER_PRODUCTS: {
+      let filtered_products = [...state.all_products]
+      const { category, text, company, color, price, shipping } = state.filter
+
+      if(!(category === 'all')){
+        filtered_products = filtered_products.filter(product => product.category === category)
+      }
+
+      if(!(text === '')){
+        filtered_products = filtered_products.filter(product => product.name.toLowerCase().includes(text.toLowerCase()))
+      }
+
+      if(!(company === 'all')){
+        filtered_products = filtered_products.filter(product => product.company === company)
+      }
+
+      if(!(color === 'all')){
+        filtered_products = filtered_products.filter(product => {
+          for(let i = 0; i < product.colors.length; i++ ){
+            if(product.colors[i] === color) return true
+          }
+          return false
+        })
+      }
+
+      if(!(company === 'all')){
+        filtered_products = filtered_products.filter(product => product.company === company)
+      }
+
+
+      return {...state, filtered_products: filtered_products}
+    }
     default:
       return state;
   }
@@ -95,3 +137,4 @@ type ActionsType =
   | ReturnType<typeof updateSortAC>
   | ReturnType<typeof sortProductsAC>
   | ReturnType<typeof updateFiltersAC>
+  | ReturnType<typeof filterProductsAC>
