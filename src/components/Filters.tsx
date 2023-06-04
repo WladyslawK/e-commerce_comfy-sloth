@@ -1,13 +1,13 @@
-import React from 'react'
+import React, {ChangeEvent, MouseEvent} from 'react'
 import styled from 'styled-components'
 import {getUniqueValues, formatPrice} from '../utils/helpers'
 import {FaCheck} from 'react-icons/fa'
-import {useSelector} from "react-redux";
-import {rootReducerType} from "../store/store";
-import {FilterStateType} from "../reducers/filter-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {rootReducerType, ThunkAppDispatchType} from "../store/store";
+import {filterProductsAC, FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
 
 export function Filters() {
-
+  const dispatch = useDispatch<ThunkAppDispatchType>()
   const {
     filter: {
       category,
@@ -22,15 +22,25 @@ export function Filters() {
     all_products
   } = useSelector<rootReducerType, FilterStateType>(state => state.filter)
 
-  const updateFilters = () => {}
-  const clearFilters = () => {}
+  const updateFiltersHandler =
+    (e:ChangeEvent<HTMLInputElement>
+      | MouseEvent<HTMLButtonElement>
+      | ChangeEvent<HTMLSelectElement>
+    ) => {
+
+    const payload = {
+      [e.currentTarget.name]: e.currentTarget.value
+    }
+      console.log(payload)
+    dispatch(updateFiltersAC(payload))
+    dispatch(filterProductsAC())
+  }
+
 
 
   const categories = getUniqueValues(all_products, 'category')
   const companies = getUniqueValues(all_products, 'company')
   const colors = getUniqueValues(all_products, 'colors')
-
-  console.log(colors)
 
   return <Wrapper>
     <div className="content">
@@ -42,7 +52,7 @@ export function Filters() {
             placeholder='search'
             className='search-input'
             value={text}
-            onChange={updateFilters}
+            onChange={(e) => updateFiltersHandler(e)}
           />
         </div>
         <div className='form-control'>
@@ -54,8 +64,9 @@ export function Filters() {
                   type="button"
                   key={index}
                   name='category'
-                  onClick={updateFilters}
+                  onClick={(e) => updateFiltersHandler(e)}
                   className={item === category ? 'active' : ''}
+                  value={item}
                 >
                   {item}
                 </button>
@@ -66,7 +77,7 @@ export function Filters() {
         <div className="from-control">
           <h5>company</h5>
           <div className="form-control">
-            <select name="company" value={company} onChange={updateFilters} className='company'>
+            <select name="company" value={company} onChange={(e) => updateFiltersHandler(e)} className='company'>
               {
                 companies.map((item, index) => <option
                   key={index}
@@ -87,9 +98,10 @@ export function Filters() {
                 key={index}
                 name='color'
                 style={{backgroundColor: item}}
-                className={color === item ? 'active color-btn' : 'color-btn'}
-                onClick={updateFilters}
+                className={color[0] === item ? 'active color-btn' : 'color-btn'}
+                onClick={(e) => updateFiltersHandler(e)}
                 data-color={item}
+                value={item}
               >
                 {color === item ? <FaCheck/> : null}
               </button>)
@@ -102,7 +114,7 @@ export function Filters() {
           <input
             type="range"
             name='price'
-            onChange={updateFilters}
+            onChange={(e) => updateFiltersHandler(e)}
             min={min_price}
             max={max_price}
             value={price}
