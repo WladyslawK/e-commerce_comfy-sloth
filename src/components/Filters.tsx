@@ -4,7 +4,7 @@ import {getUniqueValues, formatPrice} from '../utils/helpers'
 import {FaCheck} from 'react-icons/fa'
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType, ThunkAppDispatchType} from "../store/store";
-import {FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
+import {filterProductsAC, FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
 
 export function Filters() {
   const dispatch = useDispatch<ThunkAppDispatchType>()
@@ -33,6 +33,7 @@ export function Filters() {
     }
       console.log(payload)
     dispatch(updateFiltersAC(payload))
+    dispatch(filterProductsAC())
   }
 
 
