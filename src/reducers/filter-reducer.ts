@@ -58,8 +58,12 @@ export const filterProductsAC = () => ({type: FILTER_PRODUCTS} as const)
 
 export const filterReducer = (state: FilterStateType = initialState, action: ActionsType): FilterStateType => {
   switch (action.type) {
-    case SET_PRODUCTS:
-      return {...state, all_products: action.payload.products, filtered_products: action.payload.products}
+    case SET_PRODUCTS:{
+      const  maxPrice = Math.max(...action.payload.products.map(product => product.price))
+      const  minPrice = Math.min(...action.payload.products.map(product => product.price))
+      return {...state, all_products: action.payload.products, filtered_products: action.payload.products, filter: {...state.filter, max_price: maxPrice, min_price: minPrice, price: maxPrice}}
+    }
+
     case SET_LIST_VIEW:
       return {...state, grid_view: false}
     case SET_GRID_VIEW:
@@ -115,6 +119,14 @@ export const filterReducer = (state: FilterStateType = initialState, action: Act
           }
           return false
         })
+      }
+
+      if(price){
+        filtered_products = filtered_products.filter(product => product.price <= price)
+      }
+
+      if(shipping){
+        filtered_products = filtered_products.filter(product => product.shipping)
       }
 
       if(!(company === 'all')){
