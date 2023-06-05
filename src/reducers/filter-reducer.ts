@@ -1,4 +1,5 @@
 import {
+  CLEAR_FILTERS,
   FILTER_PRODUCTS,
   SET_GRID_VIEW,
   SET_LIST_VIEW,
@@ -55,6 +56,7 @@ export const updateFiltersAC = (payload: Partial<FilterStateType['filter']>) => 
   payload
 } as const)
 export const filterProductsAC = () => ({type: FILTER_PRODUCTS} as const)
+export const clearFiltersAC = () => ({type: CLEAR_FILTERS} as const)
 
 export const filterReducer = (state: FilterStateType = initialState, action: ActionsType): FilterStateType => {
   switch (action.type) {
@@ -136,6 +138,12 @@ export const filterReducer = (state: FilterStateType = initialState, action: Act
 
       return {...state, filtered_products: filtered_products}
     }
+
+    case CLEAR_FILTERS: {
+      const { max_price } = state.filter
+      return {...state, filter: {...initialState.filter, max_price, price: max_price}, filtered_products: state.all_products,}
+    }
+
     default:
       return state;
   }
@@ -150,3 +158,4 @@ type ActionsType =
   | ReturnType<typeof sortProductsAC>
   | ReturnType<typeof updateFiltersAC>
   | ReturnType<typeof filterProductsAC>
+  | ReturnType<typeof clearFiltersAC>

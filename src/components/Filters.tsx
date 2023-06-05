@@ -4,7 +4,7 @@ import {getUniqueValues, formatPrice} from '../utils/helpers'
 import {FaCheck} from 'react-icons/fa'
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType, ThunkAppDispatchType} from "../store/store";
-import {filterProductsAC, FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
+import {clearFiltersAC, filterProductsAC, FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
 
 export function Filters() {
   const dispatch = useDispatch<ThunkAppDispatchType>()
@@ -33,7 +33,6 @@ export function Filters() {
     const payload = {
       [e.currentTarget.name]: e.currentTarget.value
     }
-      console.log(payload)
     dispatch(updateFiltersAC(payload))
     dispatch(filterProductsAC())
   }
@@ -43,7 +42,7 @@ export function Filters() {
     dispatch(filterProductsAC())
   }
 
-
+  const clearFiltersHandler =() => dispatch(clearFiltersAC())
 
   const categories = getUniqueValues(all_products, 'category')
   const companies = getUniqueValues(all_products, 'company')
@@ -133,6 +132,9 @@ export function Filters() {
             <input type="checkbox" checked={shipping} name='shipping' onChange={(e) => updateShippingHandler(e)}/>
           </p>
 
+        </div>
+        <div className="form-control">
+          <button type='button' className='clear-btn' onClick={clearFiltersHandler} >Clear filters</button>
         </div>
       </form>
     </div>
