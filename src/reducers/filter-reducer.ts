@@ -1,4 +1,5 @@
 import {
+  CLEAR_FILTERS,
   FILTER_PRODUCTS,
   SET_GRID_VIEW,
   SET_LIST_VIEW,
@@ -55,11 +56,16 @@ export const updateFiltersAC = (payload: Partial<FilterStateType['filter']>) => 
   payload
 } as const)
 export const filterProductsAC = () => ({type: FILTER_PRODUCTS} as const)
+export const clearFiltersAC = () => ({type: CLEAR_FILTERS} as const)
 
 export const filterReducer = (state: FilterStateType = initialState, action: ActionsType): FilterStateType => {
   switch (action.type) {
-    case SET_PRODUCTS:
-      return {...state, all_products: action.payload.products, filtered_products: action.payload.products}
+    case SET_PRODUCTS:{
+      const  maxPrice = Math.max(...action.payload.products.map(product => product.price))
+      const  minPrice = Math.min(...action.payload.products.map(product => product.price))
+      return {...state, all_products: action.payload.products, filtered_products: action.payload.products, filter: {...state.filter, max_price: maxPrice, min_price: minPrice, price: maxPrice}}
+    }
+
     case SET_LIST_VIEW:
       return {...state, grid_view: false}
     case SET_GRID_VIEW:
@@ -117,6 +123,14 @@ export const filterReducer = (state: FilterStateType = initialState, action: Act
         })
       }
 
+      if(price){
+        filtered_products = filtered_products.filter(product => product.price <= price)
+      }
+
+      if(shipping){
+        filtered_products = filtered_products.filter(product => product.shipping)
+      }
+
       if(!(company === 'all')){
         filtered_products = filtered_products.filter(product => product.company === company)
       }
@@ -124,6 +138,12 @@ export const filterReducer = (state: FilterStateType = initialState, action: Act
 
       return {...state, filtered_products: filtered_products}
     }
+
+    case CLEAR_FILTERS: {
+      const { max_price } = state.filter
+      return {...state, filter: {...initialState.filter, max_price, price: max_price}, filtered_products: state.all_products,}
+    }
+
     default:
       return state;
   }
@@ -138,3 +158,4 @@ type ActionsType =
   | ReturnType<typeof sortProductsAC>
   | ReturnType<typeof updateFiltersAC>
   | ReturnType<typeof filterProductsAC>
+  | ReturnType<typeof clearFiltersAC>

@@ -4,7 +4,7 @@ import {getUniqueValues, formatPrice} from '../utils/helpers'
 import {FaCheck} from 'react-icons/fa'
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType, ThunkAppDispatchType} from "../store/store";
-import {filterProductsAC, FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
+import {clearFiltersAC, filterProductsAC, FilterStateType, updateFiltersAC} from "../reducers/filter-reducer";
 
 export function Filters() {
   const dispatch = useDispatch<ThunkAppDispatchType>()
@@ -22,6 +22,8 @@ export function Filters() {
     all_products
   } = useSelector<rootReducerType, FilterStateType>(state => state.filter)
 
+  console.log(max_price)
+
   const updateFiltersHandler =
     (e:ChangeEvent<HTMLInputElement>
       | MouseEvent<HTMLButtonElement>
@@ -31,12 +33,16 @@ export function Filters() {
     const payload = {
       [e.currentTarget.name]: e.currentTarget.value
     }
-      console.log(payload)
     dispatch(updateFiltersAC(payload))
     dispatch(filterProductsAC())
   }
 
+  const updateShippingHandler = (e: ChangeEvent ) => {
+    dispatch(updateFiltersAC({shipping: !shipping}))
+    dispatch(filterProductsAC())
+  }
 
+  const clearFiltersHandler =() => dispatch(clearFiltersAC())
 
   const categories = getUniqueValues(all_products, 'category')
   const companies = getUniqueValues(all_products, 'company')
@@ -119,6 +125,16 @@ export function Filters() {
             max={max_price}
             value={price}
           />
+        </div>
+        <div className="form-control">
+          <p className='shipping'>
+            <span>Free shipping</span>
+            <input type="checkbox" checked={shipping} name='shipping' onChange={(e) => updateShippingHandler(e)}/>
+          </p>
+
+        </div>
+        <div className="form-control">
+          <button type='button' className='clear-btn' onClick={clearFiltersHandler} >Clear filters</button>
         </div>
       </form>
     </div>
@@ -213,6 +229,11 @@ const Wrapper = styled.section`
 
   .price {
     margin-bottom: 0.25rem;
+  }
+  
+  .shipping{
+    display: flex;
+    justify-content: space-between;
   }
 
   .shipping {
